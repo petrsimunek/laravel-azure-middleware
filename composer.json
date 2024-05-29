@@ -1,5 +1,5 @@
 {
-    "name": "rootinc/laravel-azure-middleware",
+    "name": "petrsimunek/laravel-azure-middleware",
     "description": "Azure Middleware Auth",
     "type": "library",
     "require": {
