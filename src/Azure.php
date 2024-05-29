@@ -105,7 +105,7 @@ class Azure
      */
     public function getAzureUrl()
     {
-        $url = $this->baseUrl . config('azure.tenant_id') . $this->route2 . "authorize?response_type=code&client_id=" . config('azure.client.id') . "&domain_hint=" . urlencode(config('azure.domain_hint')) . "&scope=" . urldecode(config('azure.scope'));
+        return $this->baseUrl . config('azure.tenant_id') . $this->route2 . "authorize?response_type=code&client_id=" . config('azure.client.id') . "&domain_hint=" . urlencode(config('azure.domain_hint')) . "&scope=" . urldecode(config('azure.scope')) . "&redirect_uri=" . urlencode(config('azure.redirect_uri'));
 
         return Route::has('azure.callback') ? $url . '&redirect_uri=' . urlencode(route('azure.callback')) : $url;
     }
@@ -147,14 +147,17 @@ class Azure
         $code = $request->input('code');
 
         try {
+            $form_params = [
+                'grant_type' => 'authorization_code',
+                'client_id' => config('azure.client.id'),
+                'client_secret' => config('azure.client.secret'),
+                'code' => $code,
+                'resource' => config('azure.resource'),
+                'redirect_uri' => config('azure.redirect_uri'),
+            ];
+
             $response = $client->request('POST', $this->baseUrl . config('azure.tenant_id') . $this->route . "token", [
-                'form_params' => [
-                    'grant_type' => 'authorization_code',
-                    'client_id' => config('azure.client.id'),
-                    'client_secret' => config('azure.client.secret'),
-                    'code' => $code,
-                    'resource' => config('azure.resource'),
-                ]
+                'form_params' => $form_params,
             ]);
 
             $contents = json_decode($response->getBody()->getContents());

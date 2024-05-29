@@ -58,4 +58,15 @@ return [
     |
     */
     'scope' => env('AZURE_SCOPE', 'User.Read'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Redirect URI
+    |--------------------------------------------------------------------------
+    |
+    | Defines redirect URI for specific redirection within registered application
+    | https://docs.microsoft.com/en-us/graph/api/resources/users?view=graph-rest-1.0
+    |
+    */
+    'redirect_uri' => env('AZURE_REDIRECT_URI', ''),
 ];
