@@ -4,17 +4,17 @@ Provides Azure Authentication Middleware for a Laravel App.  If you like this, c
 
 ## Normal Installation
 
-1. `composer require rootinc/laravel-azure-middleware`
-2. run `php artisan vendor:publish --provider="RootInc\LaravelAzureMiddleware\AzureServiceProvider"` to install config file to `config/azure.php`
+1. `composer require petrsimunek/laravel-azure-middleware`
+2. run `php artisan vendor:publish --provider="petrsimunek\LaravelAzureMiddleware\AzureServiceProvider"` to install config file to `config/azure.php`
 3. In our routes folder (most likely `web.php`), add
 ```php
-Route::get('/login/azure', '\RootInc\LaravelAzureMiddleware\Azure@azure')
+Route::get('/login/azure', '\petrsimunek\LaravelAzureMiddleware\Azure@azure')
     ->name('azure.login');
-Route::get('/login/azurecallback', '\RootInc\LaravelAzureMiddleware\Azure@azurecallback')
+Route::get('/login/azurecallback', '\petrsimunek\LaravelAzureMiddleware\Azure@azurecallback')
     ->name('azure.callback');
 ```
 > NOTE: Only need the route names if configuring `redirect_uri` in the portal.
-4. In our `App\Http\Kernel.php` add `'azure' => \RootInc\LaravelAzureMiddleware\Azure::class,` most likely to the `$routeMiddleware` array.
+4. In our `App\Http\Kernel.php` add `'azure' => \petrsimunek\LaravelAzureMiddleware\Azure::class,` most likely to the `$routeMiddleware` array.
 5. In our `.env` add `AZURE_TENANT_ID, AZURE_CLIENT_ID, AZURE_CLIENT_SECRET and AZURE_RESOURCE`.  We can get these values/read more here: https://portal.azure.com/ (Hint: AZURE_RESOURCE should be https://graph.microsoft.com)
 6. As of 0.8.0, we added `AZURE_SCOPE`, which are permissions to be used for the request.  We can read more about these here: https://docs.microsoft.com/en-us/graph/api/resources/users?view=graph-rest-1.0
 7. We also added an optional `AZURE_DOMAIN_HINT` that can be used to help users know which email address they should login with.  More info here: https://azure.microsoft.com/en-us/updates/app-service-auth-and-azure-ad-domain-hints/
@@ -26,11 +26,11 @@ Route::get('/login/azurecallback', '\RootInc\LaravelAzureMiddleware\Azure@azurec
 
 ## Routing
 
-`Route::get('/login/azure', '\RootInc\LaravelAzureMiddleware\Azure@azure')->name('azure.login');` First parameter can be wherever you want to route the azure login.  Change as you would like.
+`Route::get('/login/azure', '\petrsimunek\LaravelAzureMiddleware\Azure@azure')->name('azure.login');` First parameter can be wherever you want to route the azure login.  Change as you would like.
 
-`Route::get('/login/azurecallback', '\RootInc\LaravelAzureMiddleware\Azure@azurecallback')->name('azure.callback');` First parameter can be whatever you want to route after your callback.  Change as you would like.
+`Route::get('/login/azurecallback', '\petrsimunek\LaravelAzureMiddleware\Azure@azurecallback')->name('azure.callback');` First parameter can be whatever you want to route after your callback.  Change as you would like.
 
-`Route::get('/logout/azure', '\RootInc\LaravelAzureMiddleware\Azure@azurelogout')->name('azure.logout);` First parameter can be whatever you want to route after your callback.  Change as you would like.
+`Route::get('/logout/azure', '\petrsimunek\LaravelAzureMiddleware\Azure@azurelogout')->name('azure.logout);` First parameter can be whatever you want to route after your callback.  Change as you would like.
 
 > NOTE: Only need the route names if configuring `redirect_uri` in the portal.
 
@@ -52,7 +52,7 @@ namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
 
-use RootInc\LaravelAzureMiddleware\Azure as Azure;
+use petrsimunek\LaravelAzureMiddleware\Azure as Azure;
 use Microsoft\Graph\Graph;
 use Microsoft\Graph\Model;
 
@@ -114,7 +114,7 @@ use Illuminate\Http\Request;
 
 use Closure;
 
-use RootInc\LaravelAzureMiddleware\Azure as Azure;
+use petrsimunek\LaravelAzureMiddleware\Azure as Azure;
 
 use Auth;
 use Carbon\Carbon;
@@ -149,7 +149,7 @@ namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
 
-use RootInc\LaravelAzureMiddleware\Azure as Azure;
+use petrsimunek\LaravelAzureMiddleware\Azure as Azure;
 
 use Auth;
 
@@ -178,7 +178,7 @@ As of v0.4.0, we added the ability to change the `$login_route` in the middlewar
 
 namespace App\Http\Middleware;
 
-use RootInc\LaravelAzureMiddleware\Azure as Azure;
+use petrsimunek\LaravelAzureMiddleware\Azure as Azure;
 
 class AppAzure extends Azure
 {
@@ -199,7 +199,7 @@ namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
 
-use RootInc\LaravelAzureMiddleware\Azure as Azure;
+use petrsimunek\LaravelAzureMiddleware\Azure as Azure;
 
 use Auth;
 
@@ -250,7 +250,7 @@ namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
 
-use RootInc\LaravelAzureMiddleware\Azure as Azure;
+use petrsimunek\LaravelAzureMiddleware\Azure as Azure;
 
 use Auth;
 
